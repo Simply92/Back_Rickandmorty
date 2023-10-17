@@ -8,6 +8,14 @@ module.exports = (sequelize) => {
          primaryKey: true,
          autoIncrement: true,
       },
+      name:{
+         type:DataTypes.STRING,
+         allownull: false,
+      },
+      lastname:{
+         type:DataTypes.STRING,
+         allownull: false
+      },
       email:{
          type: DataTypes.STRING,
          allownull: false,

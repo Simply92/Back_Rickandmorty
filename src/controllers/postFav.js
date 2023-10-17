@@ -1,25 +1,56 @@
-const {Favorite} = require('../DB_connection');
+const { Favorite } = require("../DB_connection"); //por qué se importa desde db en vez de desde models?
 
-const postFav = async(req, res) => {
-   try {
-    const {id, name, origin, status, image, species, gender} = req.body;
-    if(!id || !name || !origin || !status || !image || !species || !gender){
-        return res.status(401).send('missing data')
-       } 
-       await Favorite.findOrCreate({
-        where: {
-            id, name, origin, status, image, species, gender
-        }
-       })
-       const allFav = await Favorite.findAll()
-       return res.json(allFav)
+const postFav = async (req, res) => {
+  try {
+    const { id, name, origin, status, image, species, gender } = req.body;
+    if (!id || !name || !origin || !status || !image || !species || !gender) {
+      return res.status(401).send("Faltan datos");
+    }
+    await Favorite.findOrCreate({
+      where: {
+        id,
+        name,
+        origin,
+        status,
+        image,
+        species,
+        gender,
+      },
+    });
+    const favorites = await Favorite.findAll();
+    return res.status(200).json(favorites);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = postFav;
+
+
+
+
+// const {Favorite} = require('../DB_connection');
+
+// const postFav = async(req, res) => {
+//    try {
+//     const {id, name, origin, status, image, species, gender} = req.body;
+//     if(!id || !name || !origin || !status || !image || !species || !gender){
+//         return res.status(401).send('missing data')
+//        } 
+//        await Favorite.findOrCreate({
+//         where: {
+//             id, name, origin, status, image, species, gender
+//         }
+//        })
+//        const allFav = await Favorite.findAll()
+//        return res.status(200).json(allFav)
     
-   } catch (error) {
-    return res.status(500).json({ error: error.message });
-   }
-}
+//    } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//    }
+// }
 
-module.exports= postFav;
+// module.exports= postFav;
 
 
 
