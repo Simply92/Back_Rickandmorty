@@ -14,7 +14,7 @@ const postUser = async(req,res) => {
     })
     res.status(201).send({user, created: isCreated});
  } catch (error) {
-    res.status(500).json({error: error.menssage})
+    res.status(500).json({error: error.message})
  }
 }
 

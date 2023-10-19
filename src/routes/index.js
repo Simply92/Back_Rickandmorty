@@ -10,10 +10,10 @@ router.get("/character/:id",getCharById)
 
 router.get('/login', login);
 
-router.post('/register', postUser)
-
 router.post("/fav",postFav)
 
 router.delete("/fav/:id", deleteFav)
+
+router.post('/register', postUser)
 
 module.exports = router;

@@ -44,7 +44,7 @@ const login = async (req, res) => {
            ? res.status(200).json ({access: true})
            : res.status(403).send('Incorrect password')
     } catch (error) {
-       return res.status(500).json({error: error.menssage})
+       return res.status(500).json({error: error.message})
     }
 }
 
