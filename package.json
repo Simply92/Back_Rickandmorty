@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest --detectOpenHandles",
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
