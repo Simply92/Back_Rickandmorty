@@ -1,25 +1,43 @@
-const {Favorite} = require('../DB_connection');
+const { Favorite, User } = require("../DB_connection");
 
-const postFav = async(req, res) => {
-   try {
-    const {id, name, origin, status, image, species, gender} = req.body;
-    if(!id || !name || !origin || !status || !image || !species || !gender){
-        return res.status(401).send('missing data')
-       } 
-       await Favorite.findOrCreate({
-        where: {
-            id, name, origin, status, image, species, gender
-        }
-       })
-       const allFav = await Favorite.findAll()
-       return res.status(200).json(allFav)
-    
-   } catch (error) {
+const postFav = async (req, res) => {
+  
+  try {
+    const { id, name, origin, status, image, species, gender, user } = req.body;
+
+    const usuario = await User.findOne({ where: { email: user } });
+  
+
+    if (usuario) {
+      // Verificar si el favorito ya existe
+      // Crear el nuevo favorito
+      const createFavPromise = await Favorite.create({
+        id,
+        name,
+        origin,
+        status,
+        image,
+        species,
+        gender,
+      });
+
+      // Asociar el favorito al usuario
+      const addFavoritePromise = await usuario.addFavorite(createFavPromise);
+
+      // Esperar a que ambas operaciones se completen
+      await Promise.all([createFavPromise, addFavoritePromise]);
+      const favAll = await Favorite.findAll()
+
+      return res.status(200).json(favAll);
+    } else {
+      return res.status(404).json({ error: "Usuario no encontrado." });
+    }
+  } catch (error) {
     return res.status(500).json({ error: error.message });
-   }
-}
+  }
+};
 
-module.exports= postFav;
+module.exports = postFav;
 
 
 

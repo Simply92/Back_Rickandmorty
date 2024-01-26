@@ -1,8 +1,11 @@
 const server = require("./src/app")
 const { conn } = require('./src/DB_connection');
 const dotenv = require("dotenv")
+const cors = require("cors")
 dotenv.config()
 const PORT = process.env.PORT || 3001;
+
+server.use(cors())
 
 conn.sync({force: false}).then(() => {
 server.listen(PORT, () => {
