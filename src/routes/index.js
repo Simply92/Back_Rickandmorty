@@ -15,7 +15,7 @@ router.get('/getFav/:user', getFav)
 
 router.post("/fav",postFav)
 
-router.delete("/fav/:id", deleteFav)
+router.delete("/fav/:id/", deleteFav)
 
 router.post('/register', postUser)
 

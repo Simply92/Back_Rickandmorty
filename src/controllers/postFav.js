@@ -23,7 +23,7 @@ const postFav = async (req, res) => {
 
       // Asociar el favorito al usuario
       const addFavoritePromise = await usuario.addFavorite(createFavPromise);
-
+      
       // Esperar a que ambas operaciones se completen
       await Promise.all([createFavPromise, addFavoritePromise]);
       const favAll = await Favorite.findAll()
